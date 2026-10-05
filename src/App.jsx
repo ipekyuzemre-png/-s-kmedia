@@ -145,45 +145,59 @@ Bu konuda detaylı bilgi ve analiz alabilir miyim?`;
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="md:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px]"
-            />
-            {/* Menu Dropdown */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`md:hidden fixed inset-0 z-40 backdrop-blur-2xl flex flex-col pt-28 pb-32 px-6 overflow-y-auto ${isScrolled ? 'bg-white/95' : 'bg-[#060b14]/95'}`}
+          >
+            <div className="flex flex-col items-center justify-center space-y-8 flex-1 mt-4">
+              {[
+                { name: 'Hizmetler', href: '#hizmetler' },
+                { name: 'Neden Biz?', href: '#neden-biz' },
+                { name: 'Paketler', href: '#paketler' }
+              ].map((item, i) => (
+                <motion.a 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  key={item.name} 
+                  href={item.href} 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className={`text-4xl font-extrabold tracking-tight hover:text-brand-500 transition-colors py-2 ${isScrolled ? 'text-slate-900' : 'text-white'}`}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+            
             <motion.div 
-              initial={{ opacity: 0, y: -10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              className={`md:hidden fixed top-[4.5rem] left-4 right-4 z-50 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.2)] overflow-hidden border ${isScrolled ? 'bg-white/95 backdrop-blur-3xl border-slate-200/50' : 'bg-[#0a0f1c]/95 backdrop-blur-3xl border-white/10'}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="w-full mt-12 flex flex-col items-center gap-8"
             >
-              <div className="flex flex-col p-6 space-y-2">
-                {[
-                  { name: 'Hizmetler', href: '#hizmetler' },
-                  { name: 'Neden Biz?', href: '#neden-biz' },
-                  { name: 'Paketler', href: '#paketler' }
-                ].map((item) => (
-                  <a 
-                    key={item.name} 
-                    href={item.href} 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className={`text-lg font-medium p-3 rounded-2xl transition-all text-center ${isScrolled ? 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-                <div className={`pt-4 mt-2 border-t ${isScrolled ? 'border-slate-100' : 'border-white/10'}`}>
-                  <a href="https://wa.me/905346380363?text=Merhaba%2C%20sosyal%20medya%20y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className={`block w-full mx-auto py-3.5 px-6 text-center rounded-full text-sm font-bold shadow-lg hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 transition-all duration-300 ${isScrolled ? 'bg-slate-900 hover:bg-brand-500 text-white shadow-slate-900/20 hover:shadow-brand-500/30' : 'bg-white text-slate-900 hover:bg-brand-50 hover:text-brand-600 shadow-white/10'}`}>
-                    Ücretsiz Analiz Al
-                  </a>
-                </div>
+              <a 
+                href="https://wa.me/905346380363?text=Merhaba%2C%20sosyal%20medya%20y%C3%B6netimi%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." 
+                target="_blank" 
+                rel="noreferrer" 
+                onClick={() => setMobileMenuOpen(false)} 
+                className={`flex items-center justify-center gap-3 w-full py-5 text-center rounded-2xl text-lg font-bold hover:bg-brand-500 hover:text-white transition-all duration-300 ${isScrolled ? 'bg-slate-900 text-white shadow-[0_10px_30px_rgba(0,0,0,0.15)]' : 'bg-white text-slate-900 shadow-[0_10px_30px_rgba(255,255,255,0.15)]'}`}
+              >
+                Ücretsiz Analiz Al
+              </a>
+
+              {/* Social Icons */}
+              <div className="flex items-center justify-center gap-6">
+                <a href="https://instagram.com/isikmedia" target="_blank" rel="noreferrer" className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-brand-500 hover:border-brand-500 ${isScrolled ? 'bg-slate-50 border-slate-200 text-slate-600' : 'bg-white/5 border-white/10 text-slate-300'}`}>
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://facebook.com/isikmedia" target="_blank" rel="noreferrer" className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 hover:text-white hover:bg-brand-500 hover:border-brand-500 ${isScrolled ? 'bg-slate-50 border-slate-200 text-slate-600' : 'bg-white/5 border-white/10 text-slate-300'}`}>
+                  <Facebook className="w-5 h-5" />
+                </a>
               </div>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
 
